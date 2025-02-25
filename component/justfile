@@ -1,0 +1,20 @@
+# Build the WIT package at wit/fetch.wit.
+build-wit-package:
+  wkg wit build -d ../wit
+
+# Fetch WASI dependencies for the component into wit/deps.
+fetch-wit-deps:
+  wkg wit fetch -d ../wit
+
+# Generate Go bindings for the component.
+generate-go-bindings: build-wit-package fetch-wit-deps
+  wit-bindgen-go generate -o internal ./sd2k:go-component-example@0.1.0.wasm
+
+# Build the component.
+build: build-wit-package fetch-wit-deps generate-go-bindings
+  GOTOOLCHAIN=go1.23.6 tinygo build \
+    -target=wasip2 \
+    -wit-world fetcher \
+    -wit-package ../wit \
+    -o fetch.wasm \
+    .

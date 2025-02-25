@@ -1,0 +1,11 @@
+[package]
+name = "example-host"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.96"
+tokio = { version = "1.43.0", features = ["macros", "rt-multi-thread"] }
+wasmtime = "30.0.1"
+wasmtime-wasi = "30.0.1"
+wasmtime-wasi-http = "30.0.1"
