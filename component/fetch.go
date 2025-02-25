@@ -9,6 +9,8 @@ import (
 	"go.bytecodealliance.org/cm"
 )
 
+type FetchResult = cm.Result[string, string, string]
+
 func fetch(url string) (string, error) {
 	r, err := http.Get(url)
 	if err != nil {
@@ -25,11 +27,11 @@ func fetch(url string) (string, error) {
 func init() {
 	http.DefaultTransport = NewWasiRoundTripper()
 	http.DefaultClient.Transport = NewWasiRoundTripper()
-	fetcher.Exports.Fetch = func(url string) cm.Result[string, string, string] {
+	fetcher.Exports.Fetch = func(url string) FetchResult {
 		r, err := fetch(url)
 		if err != nil {
-			return cm.Err[cm.Result[string, string, string], string, string, string](fmt.Sprintf("fetch: %v", err))
+			return cm.Err[FetchResult](fmt.Sprintf("fetch: %v", err))
 		}
-		return cm.OK[cm.Result[string, string, string], string, string](r)
+		return cm.OK[FetchResult](r)
 	}
 }
