@@ -10,7 +10,7 @@ import (
 )
 
 func fetch(url string) (string, error) {
-	r, err := http.Get("http://example.com")
+	r, err := http.Get(url)
 	if err != nil {
 		return "", fmt.Errorf("error making request %v", err)
 	}
