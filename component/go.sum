@@ -1,2 +1,4 @@
 go.bytecodealliance.org/cm v0.1.1-0.20250218151459-e57ac0139b6f h1:cHJcIruuUZwd7rDdcJHOVotufiO+qPfFwcxb6uCUVSI=
 go.bytecodealliance.org/cm v0.1.1-0.20250218151459-e57ac0139b6f/go.mod h1:NZ2UT0DyGhBfpIPOxPMCuG6g1YTR4YF3xweD7mHX5VQ=
+tinygo.org/x/drivers v0.29.0 h1:xHuq8Fr1D/D2+1V/3d+aXufqP81/CLi1itdVbrYgrE0=
+tinygo.org/x/drivers v0.29.0/go.mod h1:q/mU8G/wz821p8xXqbkBACOlmZFDHXd//DnYnCW+dDQ=

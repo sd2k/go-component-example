@@ -6,7 +6,9 @@ import (
 	"net/http"
 
 	"github.com/sd2k/go-component-example/internal/sd2k/go-component-example/fetcher"
+	instancenetwork "github.com/sd2k/go-component-example/internal/wasi/sockets/instance-network"
 	"go.bytecodealliance.org/cm"
+	"tinygo.org/x/drivers/netdev"
 )
 
 type FetchResult = cm.Result[string, string, string]
@@ -25,8 +27,9 @@ func fetch(url string) (string, error) {
 }
 
 func init() {
-	http.DefaultTransport = NewWasiRoundTripper()
-	http.DefaultClient.Transport = NewWasiRoundTripper()
+	netdev.UseNetdev(newWasiNetDev(instancenetwork.InstanceNetwork()))
+	// http.DefaultTransport = NewWasiRoundTripper()
+	// http.DefaultClient.Transport = NewWasiRoundTripper()
 	fetcher.Exports.Fetch = func(url string) FetchResult {
 		r, err := fetch(url)
 		if err != nil {

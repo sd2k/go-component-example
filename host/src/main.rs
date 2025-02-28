@@ -46,7 +46,11 @@ struct ServerWasiView {
 impl ServerWasiView {
     fn new() -> Self {
         let table = ResourceTable::new();
-        let ctx = WasiCtxBuilder::new().inherit_stdio().build();
+        let ctx = WasiCtxBuilder::new()
+            .inherit_stdio()
+            .allow_ip_name_lookup(true)
+            .allow_blocking_current_thread(true)
+            .build();
         let http = WasiHttpCtx::new();
 
         Self { table, ctx, http }
